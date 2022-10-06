@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { TokenContext } from "../context/TokenContext";
 import { ThreeDots } from "react-loader-spinner";
+import { Header } from "../components/Header/Header";
 
 
 export default function Login(){
@@ -13,9 +14,10 @@ export default function Login(){
   const [disabled, setDisabled] = useState(false);
   const {setToken} = useContext(TokenContext);
   const [botao, setBotao] = useState("Entrar");
-  const [colorButton, setColorButton] = useState("#003f88");
-  const [colorInput, setColorInput] = useState("#003f88");
+  const [colorButton, setColorButton] = useState("#274c77");
+  const [colorInput, setColorInput] = useState("#274c77");
   const navigate = useNavigate();
+  const page = "login";
   const REACT_APP_REQUEST_URL = process.env.REACT_APP_REQUEST_URL;
   
   
@@ -39,8 +41,8 @@ export default function Login(){
     }));
     promise.catch((response => {
       alert(response.response.data);
-      setColorButton("#003f88");
-      setColorInput("#003f88");
+      setColorButton("#274c77");
+      setColorInput("#274c77");
       setDisabled(false);
       setBotao("Login");
     }
@@ -49,7 +51,8 @@ export default function Login(){
   
   return (
     <Container disabled={disabled} colorInput= {colorInput} colorButton={colorButton}>
-      
+      <Header page={page}>
+      </Header>
       <Form >
         <form onSubmit={fazerLogin}>
           <input  disabled ={disabled} placeholder = "Email" type= "email" value={email} onChange={e => setEmail(e.target.value)} />
@@ -60,19 +63,18 @@ export default function Login(){
           <h2>Não tem conta? Cadastre-se! </h2>
         </Link>
       </Form>
-      
-      
-    </Container> 
+    </Container>
   );
 }
 
 export const Container = styled.div`
   box-sizing: border-box; 
+  margin-top: 60px;
   display: flex; 
   flex-direction: column; 
   align-items: center; 
   justify-content: center; 
-  font-family: "Raleway", sans-serif; 
+  font-family: 'Manrope', sans-serif; 
   font-size: 20px; 
   height: 100vh; 
   width: 100vw; 
@@ -89,9 +91,9 @@ export const Container = styled.div`
       font-weight: bold; 
       background-color: ${props => props.colorButton} ; 
   border: none; 
-  font-family: "Raleway", sans-serif; 
+  font-family: 'Manrope', sans-serif; 
   font-size: 20px; 
-  @media only screen and (max-width: 700px) {
+  @media only screen and (max-width: 1000px) {
     width: 80vw;
   } 
   } 
@@ -109,25 +111,25 @@ export const Container = styled.div`
     font-size: 20px; 
     background-color: #ffffff; 
     ::placeholder{ 
-      font-family: "Raleway", sans-serif; 
+      font-family: 'Manrope', sans-serif; 
       font-size: 20px; 
-      color: #003f88; 
+      color: #274c77; 
       text-align: center;
     }
-    @media only screen and (max-width: 700px) {
+    @media only screen and (max-width: 1000px) {
     width: 80vw;
   } 
   } 
   h1{ 
     font-family: "Secular One", sans-serif; 
     font-size: 40px; 
-    color: #003f88; 
+    color: #274c77; 
     margin-bottom: 30px; 
   } 
   h2, h3, h4{ 
-  font-family: "Raleway", sans-serif; 
+  font-family: 'Manrope', sans-serif; 
   font-size: 16px;
-  color: #003f88;
+  color: #274c77;
   margin-top: 30px;
   text-decoration: underline;
   } 
@@ -158,7 +160,7 @@ export const Form = styled.div`
     justify-content: center;
     
   } 
-  @media only screen and (max-width: 700px) {
+  @media only screen and (max-width: 1000px) {
     width: 90vw;
   }
 `;

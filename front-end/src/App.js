@@ -2,7 +2,7 @@ import GlobalStyle from "./styles/global";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TokenProvider from "./context/TokenContext";
 import Login from "./pages/Login";
-import Cadastro from "./pages/Cadastro";
+import SignUp from "./pages/SignUp";
 
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
       <TokenProvider>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/cadastro" element={<Cadastro />} />
+          <Route path="/cadastro" element={<SignUp />} />
         </Routes>
       </TokenProvider>
     </BrowserRouter>
