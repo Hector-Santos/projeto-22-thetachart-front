@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 
 export const TokenContext = createContext();
 
+// eslint-disable-next-line react/prop-types
 export default function TokenProvider({children}){
   const [token , setToken] = useState(null);
   const [valor , setValor] = useState(1);

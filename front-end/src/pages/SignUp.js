@@ -41,8 +41,7 @@ export default function SignUp(){
     let promise = axios.post(
       `${REACT_APP_REQUEST_URL}/signup`
       ,body);
-    promise.then((response => {    
-      console.log(response);
+    promise.then((() => {    
       navigate("/");
     }));
   

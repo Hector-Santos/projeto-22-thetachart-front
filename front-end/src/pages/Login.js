@@ -32,12 +32,11 @@ export default function Login(){
       email:email,
       password:senha
     };
-    console.log(body);
     let promise = axios.post(`${REACT_APP_REQUEST_URL}/signin`, body);
     promise.then((response => {
+      window.localStorage.setItem("token", response.data);
       setToken(response.data);
-      console.log("token", response.data);
-      navigate("/produtos");
+      navigate("/typechoice");
     }));
     promise.catch((response => {
       alert(response.response.data);
