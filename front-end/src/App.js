@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import TypeChoice from "./pages/TypeChoice";
 import ComingSoon from "./pages/ComingSoon";
+import CreateBarChart from "./pages/CreateBarChart";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path="/cadastro" element={<SignUp />} />
           <Route path="/typechoice" element={<TypeChoice />} />
           <Route path="/comingsoon" element={<ComingSoon />} />
+          <Route path="/barchart/create" element={<CreateBarChart />} />
         </Routes>
       </TokenProvider>
     </BrowserRouter>

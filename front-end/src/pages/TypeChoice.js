@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { BarChart } from "../components/charts/Barchart";
 import { LineChart } from "../components/charts/LineChart";
 import { PieChart } from "../components/charts/PieChart";
+
 import axios from "axios";
 
 
@@ -52,24 +53,28 @@ export default function TypeChoice(){
   }, [token]);
     
   return (
-    <Container>
+    <>
       <Header page={page}>
       </Header>
-      <Option onClick={()=> navigate("/comingsoon")}>
-        <LineChart></LineChart>
-        <h1>Line Chart</h1>
-      </Option>
-      <Option onClick={()=> navigate("/BarChart")}>
-        <BarChart columnColors={columnColors} columnNames ={columnNames}
-          columnValues= {coumnValues} title = {title}></BarChart>
-        <h1>Bar Chart</h1>
-      </Option>
-      <Option onClick={()=> navigate("/comingsoon")}>
-        <PieChart></PieChart>
-        <h1>Pie Chart</h1>
-      </Option>
-      
-    </Container>
+      <Container>
+        <h1>Choose a type of chart to create</h1>
+        <Options>
+          <Option onClick={()=> navigate("/comingsoon")}>
+            <LineChart></LineChart>
+            <h1>Line Chart</h1>
+          </Option>
+          <Option onClick={()=> navigate("/barchart/create")}>
+            <BarChart columnColors={columnColors} columnNames ={columnNames} columnValues= {coumnValues} title = {title}></BarChart>
+            <h1>Bar Chart</h1>
+          </Option>
+          <Option onClick={()=> navigate("/comingsoon")}>                  
+            <PieChart></PieChart>
+            <h1>Pie Chart</h1>
+          </Option>          
+        </Options>
+       
+      </Container>
+    </>
   );
 }
 
@@ -79,14 +84,34 @@ display: flex;
 flex-direction: column;
 align-items: center;
 height: 10vw;
+@media only screen and (max-width: 1000px) {
+    height: 40vw;
+    margin-top: 5vw ;
+    margin-bottom: 7vw ;
+  } 
 `;
+
+const Options = styled.div`
+  display: flex;
+  width: 100vw; 
+  flex-direction: row;
+  align-items: center; 
+  justify-content: space-around;
+  margin-top: 10vw;
+  @media only screen and (max-width: 1000px) {
+    flex-direction: column;
+    margin-top: 0vw;
+  }
+  `;
 
 export const Container = styled.div`
   box-sizing: border-box; 
-  margin-top: 60px;
-  display: flex;  
+  padding-top: 5vw;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
   align-items: center; 
-  justify-content: space-around; 
+  justify-content: flex-start;
   font-family: 'Manrope', sans-serif; 
   font-size: 20px; 
   height: 100vh; 
@@ -98,5 +123,17 @@ export const Container = styled.div`
     font-size: 30px; 
     font-weight: 500;
     color: #274c77; 
-    margin-bottom: 30px; 
-  }`;
+   
+  }
+  @media only screen and (max-width: 1000px) {
+    padding-top: 20vw;
+    h1{ 
+    font-family: 'Manrope', sans-serif; 
+    font-size: 20px; 
+    font-weight: 500;
+    color: #274c77; 
+   
+  }
+  } 
+  
+  `;

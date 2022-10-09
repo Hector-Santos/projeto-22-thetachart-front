@@ -119,28 +119,23 @@ export const Container = styled.div`
     width: 80vw;
   } 
   } 
-  h1{ 
+  h1,h3{ 
     font-family: "Secular One", sans-serif; 
     font-size: 40px; 
     color: #274c77; 
     margin-bottom: 30px; 
   } 
-  h2, h3, h4{ 
+  h2{ 
   font-family: 'Manrope', sans-serif; 
   font-size: 16px;
   color: #274c77;
   margin-top: 30px;
   text-decoration: underline;
-  } 
-  h3{  
-    font-size: 25px;  
-    margin-top: 5px;  
-    text-decoration: none;  
-  }    
-  h4{  
-      font-size: 20px;  
-      margin-bottom: 20px;  
-      text-decoration: none;  
+  }
+  h3{
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }  
 `;  
 export const Form = styled.div`  

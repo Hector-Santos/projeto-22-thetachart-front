@@ -34,7 +34,7 @@ export function BarChart({columnColors, columnNames, columnValues, title}){
     ],
   };
   const options = {
-    responsive: false,
+    responsive: true,
     plugins: {
       legend: {
         display: false,
