@@ -4,24 +4,43 @@ import { useNavigate, } from "react-router-dom";
 import { Header } from "../components/Header/Header";
 import styled from "styled-components";
 import { BarChart } from "../components/charts/Barchart";
-import { LineChart } from "../components/charts/LineChart";
-import { PieChart } from "../components/charts/PieChart";
+import { ThreeDots } from "react-loader-spinner";
+import useWindowDimensions from "../Hooks/WindowResizeHook";
 
 import axios from "axios";
 
 
 
 
-export default function TypeChoice(){
+export default function BarChartView(){
 
   const [columnColors, setCollumnColors] = useState("");
   const [columnNames,  setCollumnNames] = useState("");
   const [coumnValues,  setCollumnValues ] = useState("");
+  const [colorButton, setColorButton] = useState("#274c77");
+  const [disabled, setDisabled] = useState(false);
+  const [botao, setBotao] = useState("Create new chart");
   const [title, setTitle] = useState("");
+  const [chartWidth, setChartWidth] = useState(200);
+  const [chartHeigth, setChartHeigth] = useState(100);
+
+  const { width } = useWindowDimensions();
   const { token, header, setToken} = useContext(TokenContext);
   const REACT_APP_REQUEST_URL = process.env.REACT_APP_REQUEST_URL;
   const navigate = useNavigate();
   const page = "";
+  
+  useEffect(()=>{
+    console.log(width);
+    if(width<1000){
+      setChartHeigth(800);
+      setChartWidth(100);
+    }
+    if(width>1000){
+      setChartHeigth(100);
+      setChartWidth(300);
+    }
+  },[width] );
 
   useEffect(()=>{
     ( ()=>{
@@ -39,8 +58,9 @@ export default function TypeChoice(){
 
   useEffect(() => {
     if(!token) return;
-    
-    let promise = axios.get(`${REACT_APP_REQUEST_URL}/barchart/random`, header);
+
+    const chartId = window.localStorage.getItem("chartId");
+    let promise = axios.get(`${REACT_APP_REQUEST_URL}/barchart/find/${chartId}`, header);
     promise.then((response => {
       setCollumnColors(response.data.columnColors);
       setCollumnNames(response.data.columnNames);
@@ -51,73 +71,59 @@ export default function TypeChoice(){
       alert(response.response.data);
     }));
   }, [token]);
+
+  function createNew(){
+    setDisabled(true);
+    setColorButton("#4a759e");
+    setBotao(<ThreeDots color="white" height={80} width={80} />);
+    navigate("/typechoice");
+  }
     
   return (
     <>
       <Header page={page}>
       </Header>
       <Container>
-        <h1>Choose a type of chart to create</h1>
-        <Options>
-          <Option onClick={()=> navigate("/comingsoon")}>
-            <LineChart></LineChart>
-            <h1>Line Chart</h1>
-          </Option>
-          <Option onClick={()=> navigate("/barchart/create")}>
-            <BarChart columnColors={columnColors}
-              columnNames ={columnNames} columnValues= {coumnValues}
-              title = {title} width = {300} height = {200}></BarChart>
-            <h1>Bar Chart</h1>
-          </Option>
-          <Option onClick={()=> navigate("/comingsoon")}>                  
-            <PieChart></PieChart>
-            <h1>Pie Chart</h1>
-          </Option>          
-        </Options>
-       
+        <BarChartContainer>
+          <BarChart columnColors={columnColors}
+            columnNames ={columnNames} columnValues= {coumnValues}
+            title = {title} width={chartWidth} heigth={chartHeigth}> </BarChart>
+         
+        </BarChartContainer> 
+        {<CreateNew colorButton={colorButton} disabled ={disabled} onClick={()=> createNew()}> {botao}
+        </CreateNew>}
+        <div>.</div>
       </Container>
     </>
   );
 }
 
 
-const Option = styled.div`
+const BarChartContainer = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
-height: 10vw;
+justify-content: center;
+width: 90vw;
+height: 75vh;
+;
 @media only screen and (max-width: 1000px) {
-    height: 40vw;
-    margin-top: 5vw ;
-    margin-bottom: 7vw ;
+   width: 90vw;
+   height: 60vh;
   } 
 `;
 
-const Options = styled.div`
-  display: flex;
-  width: 100vw; 
-  flex-direction: row;
-  align-items: center; 
-  justify-content: space-around;
-  margin-top: 10vw;
-  @media only screen and (max-width: 1000px) {
-    flex-direction: column;
-    margin-top: 0vw;
-  }
-  `;
-
 export const Container = styled.div`
-  box-sizing: border-box; 
+ 
   padding-top: 5vw;
   overflow-x: hidden;
+  overflow-y: hidden;
   display: flex;
   flex-direction: column;
   align-items: center; 
   justify-content: flex-start;
   font-family: 'Manrope', sans-serif; 
   font-size: 20px; 
-  height: 100vh; 
-  width: 100vw; 
   padding-bottom: 50px; 
   position: relative; 
   h1{ 
@@ -128,14 +134,29 @@ export const Container = styled.div`
    
   }
   @media only screen and (max-width: 1000px) {
-    padding-top: 20vw;
-    h1{ 
-    font-family: 'Manrope', sans-serif; 
-    font-size: 20px; 
-    font-weight: 500;
-    color: #274c77; 
-   
-  }
+   padding-top: 20VH;
   } 
   
   `;
+
+export const  CreateNew = styled.div`
+display:flex;
+margin-top: 5vh;
+margin-bottom: 10vh;
+align-items: center; 
+justify-content: center; 
+height: 45px; 
+width: 30vw; 
+border-radius: 5px; 
+color: white; 
+font-weight: bold; 
+background-color: ${props => props.colorButton} ; 
+border: none; 
+font-family: 'Manrope', sans-serif; 
+font-size: 20px;
+
+@media only screen and (max-width: 1000px) {
+    width: 80vw;
+  } 
+
+`;

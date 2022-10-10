@@ -68,9 +68,10 @@ export default function CreateBarChart(){
   const [title, setTitle] = useState();
   console.log(columNames);
   const [disabled, setDisabled] = useState(false);
-  const [botao, setBotao] = useState("Criar Grafico");
+  const [botao, setBotao] = useState("Create chart");
   const [colorButton, setColorButton] = useState("#274c77");
   const [colorInput, setColorInput] = useState("#274c77");
+
 
   const { token, header, setToken} = useContext(TokenContext);
 
@@ -96,7 +97,6 @@ export default function CreateBarChart(){
   useEffect(()=>{
     columnCreation(columnNumber);
   },[columnNumber] );
-
 
 
   function columnCreation(number){
@@ -189,8 +189,8 @@ export default function CreateBarChart(){
                 setValues={setColumnValues} disabled ={disabled}>
               </Column>);
           }) : <></>}
-          {columNames.length > 0 ?<CriarGrafico colorButton={colorButton} disabled ={disabled} onClick={()=> criarGrafico()}> {botao}
-          </CriarGrafico>: <></>}
+          {columNames.length > 0 ?<CreateChart colorButton={colorButton} disabled ={disabled} onClick={()=> criarGrafico()}> {botao}
+          </CreateChart>: <></>}
           <div>.</div>
         </Columns>   
       </Container>
@@ -312,7 +312,7 @@ div{
 }
 `;
 
-export const  CriarGrafico= styled.div`
+export const  CreateChart= styled.div`
 display: flex; 
 margin-top: 10vh;
 margin-bottom: 10vh;
