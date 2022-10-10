@@ -30,18 +30,6 @@ export default function BarChartView(){
   const navigate = useNavigate();
   const page = "";
   
-  useEffect(()=>{
-    if(width<1000){
-      setChartHeigth(800);
-      setChartWidth(100);
-      setFontsize(18);
-    }
-    if(width>1000){
-      setChartHeigth(100);
-      setChartWidth(300);
-      setFontsize(25);
-    }
-  },[width] );
 
   useEffect(()=>{
     ( ()=>{
@@ -72,6 +60,19 @@ export default function BarChartView(){
       alert(response.response.data);
     }));
   }, [token]);
+
+  useEffect(()=>{
+    if(width<1000){
+      setChartHeigth(800);
+      setChartWidth(100);
+      setFontsize(18);
+    }
+    if(width>1000){
+      setChartHeigth(100);
+      setChartWidth(300);
+      setFontsize(25);
+    }
+  },[width] );
 
   function createNew(){
     setDisabled(true);
