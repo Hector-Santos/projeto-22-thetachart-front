@@ -19,9 +19,12 @@ ChartJS.register(
   Legend
 );
 
-export function BarChart({columnColors, columnNames, columnValues, title, width, height}){
+
+
+export function BarChart({columnColors, columnNames, columnValues, title, width, height, fontSize}){
   const labels = columnNames;
 
+  ChartJS.defaults.font.size = fontSize;
   const data = {
     labels,
     datasets: [
@@ -41,40 +44,25 @@ export function BarChart({columnColors, columnNames, columnValues, title, width,
       legend: {
         display: false,
         position: "top",
-        labels:{
-          fontSize: 20
-        }
       },
       title: {
         display: true,
         text: title
       },
-      scales:{
-        yAxes: [{
-          ticks: {
-            fontSize: 40
-          }
-        }]
-      }
     },
     maintainAspectRatio: false,
     options: {
-      legend: {
-        labels: {
-          fontSize: window.innerWidth > 350 ? 20 : 10
-        }
-      },
-      scales: {
-        yAxes: [{
-          ticks: {
-            reverse: false
+      plugins:{
+        legend: { 
+          labels: { 
+            fontSize: window.innerWidth > 350 ? 20 : 10 
           }
-        }]
+        }, 
       }
-    }
+    } 
   };
-
-
+ 
+ 
   {
     return <Bar options={options} fontSize = {20} width={width} height={height} data={data} />;
   }

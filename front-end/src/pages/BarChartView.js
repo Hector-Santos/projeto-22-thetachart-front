@@ -16,14 +16,14 @@ export default function BarChartView(){
 
   const [columnColors, setCollumnColors] = useState("");
   const [columnNames,  setCollumnNames] = useState("");
-  const [coumnValues,  setCollumnValues ] = useState("");
+  const [columnValues,  setCollumnValues ] = useState("");
   const [colorButton, setColorButton] = useState("#274c77");
   const [disabled, setDisabled] = useState(false);
   const [botao, setBotao] = useState("Create new chart");
   const [title, setTitle] = useState("");
   const [chartWidth, setChartWidth] = useState(200);
   const [chartHeigth, setChartHeigth] = useState(100);
-
+  const [fontsize, setFontsize] = useState(25);
   const { width } = useWindowDimensions();
   const { token, header, setToken} = useContext(TokenContext);
   const REACT_APP_REQUEST_URL = process.env.REACT_APP_REQUEST_URL;
@@ -31,14 +31,15 @@ export default function BarChartView(){
   const page = "";
   
   useEffect(()=>{
-    console.log(width);
     if(width<1000){
       setChartHeigth(800);
       setChartWidth(100);
+      setFontsize(18);
     }
     if(width>1000){
       setChartHeigth(100);
       setChartWidth(300);
+      setFontsize(25);
     }
   },[width] );
 
@@ -86,8 +87,9 @@ export default function BarChartView(){
       <Container>
         <BarChartContainer>
           <BarChart columnColors={columnColors}
-            columnNames ={columnNames} columnValues= {coumnValues}
-            title = {title} width={chartWidth} heigth={chartHeigth}> </BarChart>
+            columnNames ={columnNames} columnValues= {columnValues}
+            title = {title} width={chartWidth} heigth={chartHeigth} fontSize={fontsize}> 
+          </BarChart>
          
         </BarChartContainer> 
         {<CreateNew colorButton={colorButton} disabled ={disabled} onClick={()=> createNew()}> {botao}

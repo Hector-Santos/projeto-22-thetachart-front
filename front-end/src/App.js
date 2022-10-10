@@ -7,6 +7,7 @@ import TypeChoice from "./pages/TypeChoice";
 import ComingSoon from "./pages/ComingSoon";
 import CreateBarChart from "./pages/CreateBarChart";
 import BarChartView from "./pages/BarChartView";
+import MyCharts from "./pages/MyCharts";
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/comingsoon" element={<ComingSoon />} />
           <Route path="/barchart/create" element={<CreateBarChart />} />
           <Route path="/barchart/show" element={<BarChartView />} />
+          <Route path="/mycharts" element={<MyCharts />} />
         </Routes>
       </TokenProvider>
     </BrowserRouter>

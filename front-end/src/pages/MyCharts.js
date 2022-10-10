@@ -4,24 +4,19 @@ import { useNavigate, } from "react-router-dom";
 import { Header } from "../components/Header/Header";
 import styled from "styled-components";
 import { BarChart } from "../components/charts/Barchart";
-import { LineChart } from "../components/charts/LineChart";
-import { PieChart } from "../components/charts/PieChart";
+
 
 import axios from "axios";
 
 
 
 
-export default function TypeChoice(){
-
-  const [columnColors, setCollumnColors] = useState("");
-  const [columnNames,  setCollumnNames] = useState("");
-  const [coumnValues,  setCollumnValues ] = useState("");
-  const [title, setTitle] = useState("");
+export default function MyCharts(){
+  const [charts, setCharts] = useState("");
   const { token, header, setToken} = useContext(TokenContext);
   const REACT_APP_REQUEST_URL = process.env.REACT_APP_REQUEST_URL;
   const navigate = useNavigate();
-  const page = "";
+  const page = "mycharts";
 
   useEffect(()=>{
     ( ()=>{
@@ -40,12 +35,9 @@ export default function TypeChoice(){
   useEffect(() => {
     if(!token) return;
     
-    let promise = axios.get(`${REACT_APP_REQUEST_URL}/barchart/random`, header);
+    let promise = axios.get(`${REACT_APP_REQUEST_URL}/barchart/find`, header);
     promise.then((response => {
-      setCollumnColors(response.data.columnColors);
-      setCollumnNames(response.data.columnNames);
-      setCollumnValues(response.data.columnValues);
-      setTitle(response.data.title);
+      setCharts(response.data);
     }));
     promise.catch((response => {
       alert(response.response.data);
@@ -57,24 +49,18 @@ export default function TypeChoice(){
       <Header page={page}>
       </Header>
       <Container>
-        <h1>Choose a type of chart to create</h1>
-        <Options>
-          <Option onClick={()=> navigate("/comingsoon")}>
-            <LineChart></LineChart>
-            <h1>Line Chart</h1>
-          </Option>
-          <Option onClick={()=> navigate("/barchart/create")}>
-            <BarChart columnColors={columnColors}
-              columnNames ={columnNames} columnValues= {coumnValues}
-              title = {title} width = {300} height = {200}
-              fontSize = {12}></BarChart>
-            <h1>Bar Chart</h1>
-          </Option>
-          <Option onClick={()=> navigate("/comingsoon")}>                  
-            <PieChart></PieChart>
-            <h1>Pie Chart</h1>
-          </Option>          
-        </Options>
+        <Charts>
+          {charts? charts.map(((chart, index)=>{
+            return ( 
+              <Chart key={index} onClick={()=> navigate("/barchart/create")}>
+                <BarChart key={index} columnColors={chart.columnColors}
+                  columnNames ={chart.columnNames} columnValues= {chart.columnValues}
+                  title = {chart.title} width = {300} height = {200} fontSize = {12}>
+                </BarChart>
+              </Chart>
+            );
+          })): <h1>You have no charts yet. Click here to create a chart</h1>}      
+        </Charts>
        
       </Container>
     </>
@@ -82,7 +68,7 @@ export default function TypeChoice(){
 }
 
 
-const Option = styled.div`
+const Chart = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -94,9 +80,10 @@ height: 10vw;
   } 
 `;
 
-const Options = styled.div`
+const Charts = styled.div`
   display: flex;
-  width: 100vw; 
+  flex-flow: wrap;
+  width: 90vw; 
   flex-direction: row;
   align-items: center; 
   justify-content: space-around;

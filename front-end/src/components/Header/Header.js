@@ -10,7 +10,7 @@ export function Header({page}){
       <a>ThetaChart</a>
       {page === "login" ||  page === "signup" ? <></>
         : page === "mycharts" ? <Link style={{textDecoration: "none"}}
-          to = "/newchart"><b>Create New Chart</b></Link>
+          to = "/typechoice"><b>Create New Chart</b></Link>
           : <Link style={{textDecoration: "none"}}
             to = "/mycharts"><b>My charts</b></Link>}
     </Container>
